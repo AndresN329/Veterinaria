@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestor de Mascotas</title>
+</head>
+<body>
+  <script>
+
+    const buscarMascota = (nombre) => mascotas.find(m => m.nombre.toLowerCase() === nombre.toLowerCase());
+    const filtrarVacunados = () => mascotas.filter(m => m.vacunado);
+    const calcularPromedioEdad = () => mascotas.reduce((sum, m) => sum + m.edad, 0) / mascotas.length;
+    const ordenarPorEdad = () => [...mascotas].sort((a, b) => a.edad - b.edad);
+
+    let mascotas = [
+      { nombre: "Luna", especie: "Perro", edad: 3, vacunado: true },
+      { nombre: "Michi", especie: "Gato", edad: 2, vacunado: false }
+    ];
+
+
+    function agregarMascota() {
+      const nombre = prompt("Nombre de la mascota:");
+      const especie = prompt("Especie (Perro, Gato, Iguana):");
+      const edad = parseInt(prompt("Edad de la mascota:"));
+      const vacunado = prompt("¿Está vacunado? (si/no):").toLowerCase() === "si";
+
+      mascotas.push({ nombre, especie, edad, vacunado });
+      alert("Mascota agregada correctamente.");
+    }
+
+    function buscarPorNombre() {
+      const nombreBuscar = prompt("Ingrese el nombre de la mascota:");
+      const mascota = buscarMascota(nombreBuscar);
+
+      if (mascota) {
+        console.log("Mascota encontrada:", mascota);
+        alert(`Mascota encontrada:\nNombre: ${mascota.nombre}\nEspecie: ${mascota.especie}\nEdad: ${mascota.edad}\nVacunado: ${mascota.vacunado ? "Sí" : "No"}`);
+      } else {
+        alert("Mascota no encontrada.");
+      }
+    }
+
+    function mostrarVacunados() {
+      const vacunados = filtrarVacunados();
+      console.log("Mascotas vacunadas:", vacunados);
+      alert(`Hay ${vacunados.length} mascota(s) vacunada(s). Revisa la consola para más detalles.`);
+    }
+
+    function mostrarPromedioEdad() {
+      const promedio = calcularPromedioEdad();
+      alert(`El promedio de edad de las mascotas es: ${promedio.toFixed(2)} años.`);
+    }
+
+    function mostrarOrdenadasPorEdad() {
+      const ordenadas = ordenarPorEdad();
+      console.log("Mascotas ordenadas por edad:", ordenadas);
+      alert("Mascotas ordenadas por edad. Revisa la consola para más detalles.");
+    }
+
+    function mostrarMenu() {
+      let opcion;
+
+      do {
+        opcion = prompt(
+          "GESTOR DE MASCOTAS\n\n" +
+          "1. Agregar mascota\n" +
+          "2. Buscar mascota por nombre\n" +
+          "3. Filtrar mascotas vacunadas\n" +
+          "4. Calcular promedio de edad\n" +
+          "5. Mostrar mascotas ordenadas por edad\n" +
+          "6. Salir\n\n" +
+          "Seleccione una opción:"
+        );
+
+        switch (opcion) {
+          case "1":
+            agregarMascota();
+            break;
+          case "2":
+            buscarPorNombre();
+            break;
+          case "3":
+            mostrarVacunados();
+            break;
+          case "4":
+            mostrarPromedioEdad();
+            break;
+          case "5":
+            mostrarOrdenadasPorEdad();
+            break;
+          case "6":
+            alert("Saliendo del gestor...");
+            break;
+          default:
+            alert("Opción no válida. Intente de nuevo.");
+        }
+      } while (opcion !== "6");
+    }
+    
+    mostrarMenu();
+  </script>
+</body>
+</html>
+
+
+
